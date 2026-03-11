@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I'm Sorry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f8f3e9;
+      --ink: #191716;
+      --rose: #d87b6a;
+      --sun: #f2c14e;
+      --leaf: #5a7d6a;
+      --shadow: rgba(0,0,0,.12);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, #fbe9d9 0%, transparent 60%),
+        radial-gradient(1000px 600px at 90% 20%, #f4d6c2 0%, transparent 55%),
+        linear-gradient(140deg, #fff7ee 0%, var(--paper) 60%);
+      font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 48px 20px 80px;
+    }
+
+    .card {
+      width: min(980px, 100%);
+      background: #fffdf9;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px var(--shadow);
+      padding: clamp(28px, 4vw, 56px);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #f0e5d6;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 24px;
+      right: -60px;
+      transform: rotate(12deg);
+      background: var(--sun);
+      color: #2a1b0a;
+      padding: 10px 80px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.15);
+    }
+
+    h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      margin: 0 0 10px;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 2.6vw, 20px);
+      color: #5a5148;
+      margin: 0 0 26px;
+      max-width: 60ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: clamp(18px, 3vw, 36px);
+      align-items: start;
+    }
+
+    .letter {
+      background: #fff;
+      border: 1px dashed #e2cbb2;
+      padding: clamp(18px, 3vw, 28px);
+      border-radius: 20px;
+      font-family: "Fraunces", serif;
+      font-size: clamp(18px, 2.3vw, 22px);
+      line-height: 1.55;
+    }
+
+    .promise {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #fef3e8;
+      border: 1px solid #f1dac7;
+    }
+
+    .promise h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: .02em;
+    }
+
+    .promise ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .promise li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .promise li span:first-child {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--leaf);
+      color: #fff;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #6a5f54;
+    }
+
+    .controls {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+    }
+
+    .btn.primary {
+      background: var(--rose);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(216, 123, 106, .35);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid #d2b9a1;
+      color: #3a332b;
+    }
+
+    .sig {
+      margin-top: 10px;
+      font-family: "Fraunces", serif;
+      font-size: 22px;
+      color: #5a3d35;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 14px 14px 22px;
+      border-radius: 16px;
+      border: 1px solid #f0e1d2;
+      box-shadow: 0 18px 40px rgba(0,0,0,.12);
+      transform: rotate(-2deg);
+    }
+
+    .photo {
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 20% 20%, #ffe8d1 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, #f9c9b6 0%, transparent 55%),
+        linear-gradient(135deg, #f2d2c1 0%, #f8efe6 70%);
+      display: grid;
+      place-items: center;
+      color: #6f5a4b;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+    }
+
+    .caption {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #5c5248;
+      text-align: center;
+      font-family: "Fraunces", serif;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .ribbon { display: none; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 700ms ease forwards;
+    }
+
+    .reveal.delay-1 { animation-delay: 120ms; }
+    .reveal.delay-2 { animation-delay: 240ms; }
+    .reveal.delay-3 { animation-delay: 360ms; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="wrap">
+    <section class="card">
+      <div class="ribbon">for you</div>
+      <h1 class="reveal">I am sorry, genuinely.</h1>
+      <p class="subtitle reveal delay-1">
+        I want to say this clearly and gently: I am sorry for the hurt I caused, for the moments I failed to show you the care you deserve, and for the ways I fell short.
+      </p>
+
+      <div class="grid">
+        <div>
+          <div class="letter reveal delay-2">
+            <p>
+              I know words alone do not fix anything. I am taking responsibility for my choices and how they affected you. I am sorry for the stress, the silence, and the times I made you feel unseen. You matter to me deeply.
+            </p>
+            <p>
+              I want to make things right through consistency, patience, and honest effort. If you are open to it, I would love to listen, really listen, and learn how to love you better.
+            </p>
+          </div>
+
+          <div class="controls reveal delay-3">
+            <button class="btn primary" id="playBtn">Play our song</button>
+            <button class="btn secondary" id="togglePromises">Show my promises</button>
+          </div>
+
+          <div class="sig reveal delay-3">Always yours,</div>
+          <div class="sig reveal delay-3" id="nameSig">Your Name</div>
+        </div>
+
+        <aside>
+          <div class="polaroid reveal delay-2">
+            <div class="photo">Your Photo</div>
+            <div class="caption">our favorite memory</div>
+          </div>
+
+          <div class="promise reveal delay-3" id="promiseBox" hidden>
+            <h3>My promises</h3>
+            <ul>
+              <li><span>1</span> I will show up with consistent care.</li>
+              <li><span>2</span> I will listen first, and speak with kindness.</li>
+              <li><span>3</span> I will be accountable and do the work.</li>
+              <li><span>4</span> I will respect your boundaries and pace.</li>
+            </ul>
+            <p class="note">No pressure. Your feelings matter most.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <audio id="song" preload="none">
+    <source src="song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const playBtn = document.getElementById("playBtn");
+    const song = document.getElementById("song");
+    const togglePromises = document.getElementById("togglePromises");
+    const promiseBox = document.getElementById("promiseBox");
+
+    playBtn.addEventListener("click", async () => {
+      if (song.paused) {
+        try {
+          await song.play();
+          playBtn.textContent = "Pause our song";
+        } catch (err) {
+          playBtn.textContent = "Unable to play";
+        }
+      } else {
+        song.pause();
+        playBtn.textContent = "Play our song";
+      }
+    });
+
+    togglePromises.addEventListener("click", () => {
+      const isHidden = promiseBox.hasAttribute("hidden");
+      if (isHidden) {
+        promiseBox.removeAttribute("hidden");
+        togglePromises.textContent = "Hide my promises";
+      } else {
+        promiseBox.setAttribute("hidden", "");
+        togglePromises.textContent = "Show my promises";
+      }
+    });
+  </script>
+</body>
+</html>
