@@ -223,10 +223,12 @@ function App() {
 
         {showFinal && (
           <section className="choice fade-in">
-            <h2>Forgiven me yet babe?</h2>
-            <p>
-              I will respect your answer. I just want you to know how much I need you in my life.
-            </p>
+            <h2>{saidYes ? 'Thank you so much my baby' : 'Forgiven me yet babe?'}</h2>
+            {!saidYes && (
+              <p>
+                I will respect your answer. I just want you to know how much I need you in my life.
+              </p>
+            )}
             {!saidYes && !celebrating && (
               <div className="choice-buttons">
                 <button
