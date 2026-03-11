@@ -89,11 +89,13 @@ function App() {
 
   const handleYes = () => {
     if (saidYes || celebrating) return
-    setCelebrating(true)
     setTimeout(() => {
-      setCelebrating(false)
-      setSaidYes(true)
-    }, 4000)
+      setCelebrating(true)
+      setTimeout(() => {
+        setCelebrating(false)
+        setSaidYes(true)
+      }, 4000)
+    }, 2000)
   }
 
   const noScale = Math.max(0.4, 1 - noClicks * 0.1)
@@ -225,24 +227,26 @@ function App() {
             <p>
               I will respect your answer. I just want you to know how much I need you in my life.
             </p>
-            <div className="choice-buttons">
-              <button
-                className="btn solid choice-yes"
-                style={{ transform: `scale(${yesScale})` }}
-                onClick={handleYes}
-              >
-                Yes
-              </button>
-              {!hideNo && (
+            {!saidYes && !celebrating && (
+              <div className="choice-buttons">
                 <button
-                  className="btn ghost choice-no"
-                  style={{ transform: `scale(${noScale})` }}
-                  onClick={handleNo}
+                  className="btn solid choice-yes"
+                  style={{ transform: `scale(${yesScale})` }}
+                  onClick={handleYes}
                 >
-                  {noLabel}
+                  Yes
                 </button>
-              )}
-            </div>
+                {!hideNo && (
+                  <button
+                    className="btn ghost choice-no"
+                    style={{ transform: `scale(${noScale})` }}
+                    onClick={handleNo}
+                  >
+                    {noLabel}
+                  </button>
+                )}
+              </div>
+            )}
             {celebrating && (
               <div className="celebrate" role="status" aria-live="polite">
                 <div className="confetti">
@@ -250,7 +254,6 @@ function App() {
                     <span key={`confetti-${i}`} />
                   ))}
                 </div>
-                <p>Celebrating us...</p>
               </div>
             )}
             {saidYes && (
@@ -270,7 +273,7 @@ function App() {
         )}
 
         <footer className="footer">
-          Made with care and an honest heart.
+          I am sorry for the pain I caused. I hope this letter shows how much I care and how committed I am to making things right. Thank you for reading, and for being the amazing person you are.
         </footer>
       </div>
     </div>
